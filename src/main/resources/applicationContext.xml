@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="byName" default-lazy-init="true">
+
+    <context:annotation-config/>
+
+
+    <bean id="account1" class="com.fakhri.domain.Account">
+        <property name="id" value="1"/>
+        <property name="accountNumber" value="001"/>
+        <property name="balance" value="100000"/>
+        <property name="name" value="Fakhri"/>
+    </bean>
+
+    <bean id="account2" class="com.fakhri.domain.Account">
+        <property name="id" value="2"/>
+        <property name="accountNumber" value="002"/>
+        <property name="balance" value="200000"/>
+        <property name="name" value="Budi"/>
+    </bean>
+
+    <bean id="accountRepository"
+          class="com.fakhri.repository.implementation.AccountRepositoryImpl">
+        <property name="accountMap">
+            <map>
+                <entry key="1" value-ref="account1"></entry>
+                <entry key="2" value-ref="account2"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="accountService"
+          class="com.fakhri.service.implementation.AccountServiceImpl">
+        <property name="accountRepository" ref="accountRepository"></property>
+    </bean>
+
+</beans>
